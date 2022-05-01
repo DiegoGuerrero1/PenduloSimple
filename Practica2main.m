@@ -1,10 +1,16 @@
 %% Main 
 clc
 %clear
+
+%% Main 
 close all 
 freqexp = 0.001;
 simuld = VarName2;
 sdVar = std(VarName2);
+
+%Sólamente es un ejemplo, necesitaría proporcionar los datos de la
+%simulación númerica
+
 for i = 1:(length(VarName2)/2)
     simuld(i) = VarName2(i)-100;
 end
@@ -62,5 +68,6 @@ function expvsim = EXPVSIM(expdata,simuldata, time, samplfreq)
     plot(time,expdata, time, simuldata)
     
     benchmark(simuldata,expdata, time,dt)
+   
 
 end
