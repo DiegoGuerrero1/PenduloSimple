@@ -5,7 +5,7 @@ clc
 %% Main 
 close all 
 freqexp = 0.001;
-simuld = VarName2;
+simuld = VarName2; %varName2 es el voltaje
 sdVar = std(VarName2);
 
 %Sólamente es un ejemplo, necesitaría proporcionar los datos de la
@@ -16,7 +16,7 @@ for i = 1:(length(VarName2)/2)
 end
 
 
-EXPVSIM(VarName2,simuld,VarName1, freqexp)
+EXPVSIM(VarName2,simuld,VarName1, freqexp) %VarName1 es el tiempo 
 DATAFILTER(VarName2, sdVar ,freqexp)
 
 
