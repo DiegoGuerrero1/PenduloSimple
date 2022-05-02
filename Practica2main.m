@@ -18,8 +18,7 @@ for i = 1:(length(VarName17)/2) %simud son los datos simulados
 end
 
 
-figure
-    plot(VarName17)
+figure    plot(VarName17)
     hold on
     plot(simuld)
     legend('Experimentales','simulación')
