@@ -17,17 +17,10 @@ for i = 1:(length(VarName17)/2) %simud son los datos simulados
     simuld(i) = VarName17(i)-100;
 end
 
-
-figure
-    plot(VarName17)
-    hold on
-    plot(simuld)
-    legend('Experimentales','simulación')
-    title('Experimentales vs simulación')
-
-
 EXPVSIM(VarName17,simuld,VarName1, freqexp) %VarName1 es el tiempo 
-
+figure
+plot(simuld, VarName1)
+plot(VarName17, VarName1)
 
 
 
@@ -111,7 +104,12 @@ end
 
 function expvsim = EXPVSIM(expdata,simuldata,time ,samplfreq)
     dt = 1/samplfreq;
-    
+    figure
+    plot(expdata)
+    hold on
+    plot(simuldata)
+    label('Experimentales','')
+    title('Experimentales vs simulación')
     expvsim = benchmark(simuldata,expdata, time,dt);
 
 end
