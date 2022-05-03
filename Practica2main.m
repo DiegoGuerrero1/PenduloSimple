@@ -3,6 +3,8 @@ clc
 %clear
 
 %% Main 
+
+% Se tiene que correr primero el archivo pra2euler.m
 close all 
 freqexp = 0.001;
 simuld = thet1; %varName2 es el voltaje
@@ -13,7 +15,7 @@ tiempo = transpose(1:length(theta));
 
 
 figure    
-    plot(theta)
+    plot(imgaussfilt(theta))
     hold on
     plot(simuld)
     legend('Experimentales','simulación')
@@ -26,12 +28,18 @@ EXPVSIM(theta,simuld,tiempo, freqexp) %VarName1 es el tiempo
 
 
 %% Filtrado
-% newfiltered = gaussf(theta);
-% figure;
-% plot(newfiltered)
-% title('newfilter')
+
 
 nf = imgaussfilt(theta);
+figure 
+plot(theta)
+title('Datos con ruido')
+
+figure
+plot(nf)
+title('Datos filtrados por Gauss')
+
+
 figure
 plot(theta)
 hold on
@@ -51,6 +59,9 @@ plot(g)
 legend('Con ruido', 'Filtrados')
 title('Datos filtrados y datos con ruido (MAF)') %Se mueve la gráfica
 
+figure 
+plot(g)
+title('Datos filtrados por MAF')
 
 
 %% Llamada de datos experimentales y proceso de filtrado
