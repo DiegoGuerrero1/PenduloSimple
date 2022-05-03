@@ -5,40 +5,35 @@ clc
 %% Main 
 close all 
 freqexp = 0.001;
-simuld = VarName17; %varName2 es el voltaje
-sdVar = std(VarName17);
+simuld = thet1; %varName2 es el voltaje
+sdVar = std(theta);
 
-VarName1 = transpose(1:length(VarName17));
-
-%Sólamente es un ejemplo, necesitaría proporcionar los datos de la
-%simulación númerica
-
-for i = 1:(length(VarName17)/2) %simud son los datos simulados
-    simuld(i) = VarName17(i)-100;
-end
+tiempo = transpose(1:length(theta));
 
 
-figure    plot(VarName17)
+
+figure    
+    plot(theta)
     hold on
     plot(simuld)
     legend('Experimentales','simulación')
     title('Experimentales vs simulación')
 
 
-EXPVSIM(VarName17,simuld,VarName1, freqexp) %VarName1 es el tiempo 
+EXPVSIM(theta,simuld,tiempo, freqexp) %VarName1 es el tiempo 
 
 
 
 
 %% Filtrado
-% newfiltered = gaussf(VarName17);
+% newfiltered = gaussf(theta);
 % figure;
 % plot(newfiltered)
 % title('newfilter')
 
-nf = imgaussfilt(VarName17);
+nf = imgaussfilt(theta);
 figure
-plot(VarName17)
+plot(theta)
 hold on
 plot(nf);
 legend('Con ruido', 'Filtrados')
@@ -47,9 +42,9 @@ title('Datos filtrados vs datos con ruido (Gauss)')
 
 %Moving average filter 
 
-g = maf(VarName17, 2);
+g = maf(theta, 2);
 figure
-plot(VarName17)
+plot(theta)
 
 hold on 
 plot(g)
@@ -126,17 +121,4 @@ function gaussfilter = gaussf(data)
     gaussfilter = gausx;
 end
 
-% Elena 
-
-function efiltered = efilter(data)
-  alpha = 0.3;
-    vf = zeros(length(data));
-    vi = 0;
-    
-    for i = 1:length(data)
-        vf(i) = (alpha*data(i) + (1 - alpha)*vi);
-
-    end
-    efiltered = vf;
-end
 

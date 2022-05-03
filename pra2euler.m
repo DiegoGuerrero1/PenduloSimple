@@ -56,4 +56,4 @@ ylabel('radianes')
 hold on
 plot(t, thet1, 'DisplayName','Simulados')
 hold off
-lgd = legend
+lgd = legend;

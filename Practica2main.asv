@@ -8,7 +8,7 @@ freqexp = 0.001;
 simuld = VarName17; %varName2 es el voltaje
 sdVar = std(VarName17);
 
-VarName1 = transpose(1:length(VarName17));
+tiempo = transpose(1:length(VarName17));
 
 %Sólamente es un ejemplo, necesitaría proporcionar los datos de la
 %simulación númerica
@@ -17,10 +17,16 @@ for i = 1:(length(VarName17)/2) %simud son los datos simulados
     simuld(i) = VarName17(i)-100;
 end
 
-EXPVSIM(VarName17,simuld,VarName1, freqexp) %VarName1 es el tiempo 
-figure
-plot(simuld, VarName1)
-plot(VarName17, VarName1)
+
+figure    plot(VarName17)
+    hold on
+    plot(simuld)
+    legend('Experimentales','simulación')
+    title('Experimentales vs simulación')
+
+
+EXPVSIM(VarName17,simuld,tiempo, freqexp) %VarName1 es el tiempo 
+
 
 
 
@@ -104,12 +110,7 @@ end
 
 function expvsim = EXPVSIM(expdata,simuldata,time ,samplfreq)
     dt = 1/samplfreq;
-    figure
-    plot(expdata)
-    hold on
-    plot(simuldata)
-    label('Experimentales','')
-    title('Experimentales vs simulación')
+    
     expvsim = benchmark(simuldata,expdata, time,dt);
 
 end
@@ -125,17 +126,4 @@ function gaussfilter = gaussf(data)
     gaussfilter = gausx;
 end
 
-% Elena 
-
-function efiltered = efilter(data)
-  alpha = 0.3;
-    vf = zeros(length(data));
-    vi = 0;
-    
-    for i = 1:length(data)
-        vf(i) = (alpha*data(i) + (1 - alpha)*vi);
-
-    end
-    efiltered = vf;
-end
 
