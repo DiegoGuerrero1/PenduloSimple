@@ -1,0 +1,43 @@
+function rmse = pra2euler(kf)
+
+    %Simulación práctica de péndulo
+
+    datos = readtable("datos_final - Sheet2.csv");
+
+    volt =table2array(datos(:,17));
+    tiempo = (1:length(volt))';
+
+
+    % Obteniendo grados a partir del voltaje en bits
+    theta = ((volt*90)/volt(end))-90;
+
+    % Solución por método de Euler 
+    h = 1e-3;
+    tfin = length(theta)*h;
+    N = ceil((tfin-h)/h);
+    t = h +(0:N)*h;
+    g = 9.81;
+    m = 0.061;
+    l = 0.24;
+
+    %Condiciones iniciales
+    theta1o = deg2rad(104);
+    theta2o = 0;
+
+    kf = 0.5;
+
+    % Resolución por Euler
+    thet1 = [theta1o zeros(1,N-1)];
+    thet2 = [theta2o zeros(1,N-1)];
+
+    for n = 1 : N
+        thet1(n+1) = thet1(n) + h*(thet2(n));
+        thet2(n+1) = thet2(n) + h*((-g/l)*sin(thet1(n)) - (kf/m)*thet2(n));
+    end
+
+    rmse = sqrt(mean((theta-thet1).^2));
+
+    plot(t, thet1)
+    hold on
+    plot(tiempo,theta)
+end
